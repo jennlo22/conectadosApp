@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:spry="http://ns.adobe.com/spry">
+<html xmlns:spry="http://ns.adobe.com/spry">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+    <title>Inmobiliaria en Conectados | Houses</title>
+    <link href="jquery-mobile/jquery.mobile.theme-1.0.min.css" rel="stylesheet" type="text/css"/>
+    <link href="jquery-mobile/jquery.mobile.structure-1.0.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
+    <link href="SpryAssets/SprySpotlightColumn.css" rel="stylesheet" type="text/css">
+    <link href="SpryAssets/SpryMasterDetail.css" rel="stylesheet" type="text/css">
+    <script src="jquery-mobile/jquery-1.6.4.min.js" type="text/javascript"></script>
+    <script src="jquery-mobile/jquery.mobile-1.0.min.js" type="text/javascript"></script>
+    <script src="SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
+    <script src="SpryAssets/SpryData.js" type="text/javascript"></script>
+    <script src="SpryAssets/SpryHTMLDataSet.js" type="text/javascript"></script>
+	
+
+
+    <script type="text/javascript">
+	var pagina=0;
+
+    var dsTipoInmueble = new Spry.Data.HTMLDataSet("http://www.conectados.co/index.php?accion=obtenerTiposMovil", "tiposInmuebles");
+    var dsPrecios = new Spry.Data.HTMLDataSet("http://www.conectados.co/index.php?accion=obtenerPreciosMovil&idioma=es", "preciosInmuebles");
+var dsInmuebles = new Spry.Data.HTMLDataSet("http://www.conectados.co/index.php?accion=obtenerInmueblesMovil", "inmuebles");
+//var dsTraduccion = new Spry.Data.HTMLDataSet("http://www.conectados.co/index.php?accion=obtenerTraducciones&idioma=en", "inmueble");
+    </script>
+    <script type="text/javascript" src="js/functions.js"></script>
+	<script type="text/javascript" src="js/cambiarIdioma.js"></script>
+    <script type="text/javascript" src="js/filtrarInmuebles.js"></script>
+    <script type="text/javascript" src="js/enviarContacto.js"></script>
+    <script type="text/javascript" src="js/mostrarFotos.js"></script>
+    <script type="text/javascript" src="js/paginacion.js"></script>
+
+    <!-- INICIO Edisson - gallery ---> 
+    <link href="swip/styles.css" type="text/css" rel="stylesheet" />
+	
+	<link href="swip/photoswipe.css" type="text/css" rel="stylesheet" />
+	<link href="SpryAssets/SpryStackedContainers.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="swip/lib/klass.min.js"></script>
+	<script type="text/javascript" src="swip/code.photoswipe-3.0.5.min.js"></script>
+
+		<script>
+(function(window, PhotoSwipe){
+		
+			document.addEventListener('DOMContentLoaded', function(){
+			
+				
+				var	options = {},
+					instance = PhotoSwipe.attach( window.document.querySelectorAll('#Gallery a'), options );
+			
+			}, false);
+			
+			
+		}(window, window.Code.PhotoSwipe));
+
+ <!-- Edisson - gallery FIN --->
+
+        </script>
+    
+
+</head> 
+<body class="app"> 
+
+
+<!--<div data-role="page" id="idioma">
+	<div data-role="header" data-theme="c">
+        <div><center><img src="res/plantilla/logo-mini.png" width="82" height="20"></center></div>
+	</div>
+	<div data-role="content">	
+		
+        <div data-role="fieldcontain">
+	      <fieldset data-role="controlgroup" id="idiomas" data-type="horizontal">
+	        <input name="idioma" type="radio" id="es" value="es" />
+	        <label for="es"><div spry:region="dsTraduccion">{dsTraduccion::espanol}</div></label>
+	        <input type="radio" name="idioma" id="en" value="en" />
+	        <label for="en"><div spry:region="dsTraduccion">{dsTraduccion::ingles}</div></label>
+          </fieldset>
+      </div>
+        
+        	
+    </div>
+</div>-->
+
+
+
+<div data-role="page" id="inicio">
+	<div data-role="header" data-theme="c">
+    
+    
+    
+    <div class="header-col1"><!--<a href="#idioma" data-role="button" data-icon="arrow-l" data-iconpos="left">Inicio</a>--></div>
+    
+      <!--<div><center><img src="res/plantilla/logo-mini.png" width="82" height="20" style="padding-right:1em"></center></div>-->
+	</div>
+	<div data-role="content">	
+
+    
+    <center><img src="images/home-houses.png"/></center>
+
+      <br>
+    
+	  
+		<ul data-role="listview">
+			<li><a href="#telefono" data-rel="dialog"><div>LLamar</div></a></li>
+            <li><a href="#filtro"><div>Buscar</div></a></li>
+			<li><a href="#contacto"><div>Contactar</div></a></li>
+		</ul>	
+        
+        	
+	</div>
+</div>
+<br>
+
+<div data-role="page" id="filtro">
+  <div data-role="header" data-theme="c">
+    <div class="header-col1"><a href="#inicio" data-role="button" data-icon="arrow-l" data-iconpos="left"><div>Inicio</div></a></div>
+    <div><center><img src="res/plantilla/logo-mini.png" alt="" width="80" height="30" style="padding-right:5.5em"></center></div>
+    <div class="header-col2"></div>
+  </div>
+	<div data-role="content">
+	   
+	    <div data-role="fieldcontain">
+	      <fieldset data-role="controlgroup" data-type="horizontal">
+	        <input name="tipoNegocio" type="radio" id="tipoNegocio_0" value="paraVenta" checked />
+	        <label for="tipoNegocio_0">
+            
+            <div>Venta</div></label>
+	        <input type="radio" name="tipoNegocio" id="tipoNegocio_1" value="paraAlquiler" />
+	        <label for="tipoNegocio_1"><div>Alquiler</div></label>
+          </fieldset>
+      </div>
+
+	 
+<div data-role="fieldcontain" >
+  <select id="tipoInmuebleRemoto" spry:region="dsTipoInmueble" name="selectmenu" >
+ 
+            <option spry:repeat="dsTipoInmueble" value="{idTipoInmueble}" >{tipoInmueble}</option>
+  </select>
+
+<span>
+<span class="selectRequiredMsg">Seleccione un elemento.</span>
+</span>
+</div>
+	    <div data-role="fieldcontain">
+	      <select name="idPrecios" id="precioRemoto" spry:region="dsPrecios">
+         
+	        <option spry:repeat="dsPrecios" value="{idPrecio}">{PrecioMinimo} {PrecioMaximo} </option>
+            </select>
+      </div>
+        <a href="#" id="btnCargar" data-role="button" data-theme="a" ><div>Buscar</div></a>
+
+       
+	</div>
+</div>
+
+<br>
+<div data-role="page" id="resultados">
+  <div data-role="header" data-theme="c">
+    <div class="boton-inicio"><a href="#inicio" data-role="button" data-icon="arrow-l" data-iconpos="left">Inicio</a></div>
+    <div><center><img src="res/plantilla/logo-mini.png" alt="" width="80" height="30" style="padding-right:5.9em"></center>
+
+
+</div>
+  </div>
+  <div data-role="content">
+  <center>
+<div data-inline="true" data-type="horizontal">
+
+<a href="#" data-role="btnPrimero" data-inline="true" data-icon="arrow-l" data-iconpos="notext" id="primero">Primero</a><a href="#" data-role="btnAnterio" data-inline="true" data-icon="arrow-l" data-iconpos="notext" id="anterior"> Anterior </a> 
+
+<a href="#" data-role="btnSiguiente" data-inline="true" data-icon="arrow-r" data-iconpos="notext" id="siguiente" class="siguiente">Siguiente </a>
+
+<a href="#" data-role="btnUltimo" data-inline="true" data-icon="arrow-r" data-iconpos="notext" id="ultimo">Último </a></div>
+</center>
+  <div class="MasterDetail"">
+   <center> 
+   
+   <div spry:region="dsInmuebles" class="MasterContainer">
+     <div style="float:left;width:100%;background-color:#EAEAEA;margin:5px,5px,5px,4px;">{Tipo}
+      <div class="MasterColumn" spry:repeat="dsInmuebles" spry:setrow="dsInmuebles" spry:hover="MasterColumnHover" spry:select="MasterColumnSelected">
+      <div id="MasterColumn"><a href="#detalle"><img src="{imagen}" alt="" width="82" height="82" style="float:left;margin-right:8px;"/></a></div><br />
+       <div id="MasterColumn" style="text-align:left"><a href="#detalle">{Ubicacion}</a></div><br />
+<div id="MasterColumn" style="text-align:left">{Precio}</div >{Tipo}<br /><br /><br /></div>
+ </div><br>
+    </div></center>
+    <br style="clear:both" />
+  </div>
+  </div>
+</div>
+<br>
+<div data-role="page" id="detalle">
+  <div data-role="header" data-theme="c">
+    <div class="header-col1"><a href="#resultados" data-role="button" data-icon="arrow-l" data-iconpos="left" data-rel="back"><div>Atras</div></a></div>
+  <div class="logo"><img src="res/plantilla/logo-mini.png" alt="" width="80" height="30" style="padding-left:3em"></div>
+<div class="header-col2"></div> 
+  </div>
+  <div data-role="content">	
+  <center>Detalle</center><br>
+<div spry:detailregion="dsInmuebles" class="DetailContainer" style="border:1px solid #808080;padding:5px 5px 5px 5px ;background-image:-webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));">
+            <div class="DetailColumn">
+            </div>
+            <div class="DetailColumn">
+            <img src="{imagen}" alt="" width="82" height="82" style="float:left;margin-right:9px";></div>
+            <div class="DetailColumn">{Tipo} en {Ubicacion}</div>
+            <div class="DetailColumn">{Precio}</div><br>
+            <div class="DetailColumn">{Observaciones}</div>
+            <div class="DetailColumn">{idInmueble}</div><br>
+    
+  <div class="DetailColumn"><a href="#telefono" data-role="button" data-icon="llamar" data-iconpos="right" data-rel="dialog">Llamar / Call</a></div>
+            
+
+          <br style="clear:both" />
+        </div>
+    
+<a href="#detalla" id="btnTipo" data-role="button" data-theme="a" ><div> Ver Fotos</div></a>
+  </div>
+
+</div>
+
+<br>
+
+<div data-role="page" data-add-back-btn="true" id="gallery" class="gallery-page">
+
+	 <div data-role="header"> 
+    
+    
+		
+        <h1><div>Fotos</div></h1>
+	</div>
+
+	<div data-role="content" style="height:200px" style="background-color:#000">	
+	
+		<ul class="gallery" id="Gallery2">    
+        
+          
+         </ul>
+		</div>
+
+</div>
+<br>
+<div data-role="page" id="contacto">
+  <div data-role="header" data-theme="c">
+    <div class="header-col1"><a href="#inicio" data-role="button" data-icon="arrow-l" data-iconpos="left"><div>Inicio</div></a></div>
+    <div><center><img src="res/plantilla/logo-mini.png" alt="" width="80" height="30"></center></div>
+    <div class="header-col2"></div>
+  </div>
+
+  <div data-role="content">
+              <input type="text" size="50" style="display:none" name="idInmueble" id="idInmueble" value="1"/>
+            <table>
+                <tr>
+                    <td>
+                       <div>Nombre:</div>
+                    </td>
+                    <td>
+                        <input type="text" size="50" name="nombre" id="nombre"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>Telefono:</div>
+                    </td>
+                    <td>
+                        <input type="text" size="50" name="telefono" id="telefono"/>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <div>e-mail:</div>
+                    </td>
+                    <td>
+                        <input type="text" size="50" name="email" id="email"/>
+                    </td>
+                </tr>
+                         
+                <tr>
+                    <td>
+                         <div>Comentario:</div>
+                    </td>
+                    <td>
+                        <textarea name="observaciones"  cols="40" rows="8" size="50" id="observaciones"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                   <div>
+                        <input type="submit"  value="Enviar" onClick="envioMensaje();"/></div>
+                    </td>
+                </tr>
+           </table>
+  
+  </div>
+</div>
+
+
+</div>
+
+<div data-role="page" id="telefono">
+  <div data-role="header" data-theme="c">
+      <center><img src="res/plantilla/logo-mini.png" alt="" width="80" height="30" style="text-align:center;padding-bottom:7px; padding-top:5px;"></center>
+  </div>
+<div data-role="content">
+
+<a href="tel:0368869050" id="btnTipo" data-role="button"  data-icon="llamar"  data-iconpos="right" data-theme="c"  ><div> I. Llamar</div></a>
+
+         <br>
+  <a href="tel:0368869050" id="btnTipo" data-role="button" data-icon="llamar" data-iconpos="right" data-theme="c" ><div> II. Llamar</div></a>
+           <br>
+           <a href="tel:0368869050" id="btnTipo" data-role="button" data-icon="llamar"  data-iconpos="right" data-theme="c" ><div> II. Llamar</div></a>
+  
+
+</div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+
+        $("#btnTipo").click(function(event){
+            event.preventDefault();
+			$.cargarFotos();
+			$.mobile.changePage( "#gallery" );
+        });
+
+$("#btnCargar").click(function(event){
+			pagina=0;
+            event.preventDefault();
+			//$.filtrarInmuebles();
+			$.mobile.changePage( "#resultados" );
+        });
+		
+$('#gallery').live('pageshow', function(e){                                        
+			var iPhotoSwipe = $("#Gallery2 a", e.target).photoSwipe({  });
+			iPhotoSwipe.show(0);
+            return true;                                
+		});
+
+    });
+	
+	$("input[name='idioma']").click(function(){
+			$.cambiarIdioma();	
+			
+			
+			
+	});
+	
+	
+
+	
+	
+	
+</script>
+
+</body>
+</html>

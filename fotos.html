@@ -1,0 +1,224 @@
+<!DOCTYPE html> 
+<html xmlns:spry="http://ns.adobe.com/spry">
+<head>
+<meta charset="utf-8">
+<title>Inmobiliaria en Javea | Houses</title>
+<link href="jquery-mobile/jquery.mobile.theme-1.0.min.css" rel="stylesheet" type="text/css"/>
+<link href="jquery-mobile/jquery.mobile.structure-1.0.min.css" rel="stylesheet" type="text/css"/>
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
+<link href="SpryAssets/SprySpotlightColumn.css" rel="stylesheet" type="text/css">
+<link href="SpryAssets/SpryMasterDetail.css" rel="stylesheet" type="text/css">
+<script src="jquery-mobile/jquery-1.6.4.min.js" type="text/javascript"></script>
+<script src="jquery-mobile/jquery.mobile-1.0.min.js" type="text/javascript"></script>
+<script src="SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
+<script src="SpryAssets/SpryData.js" type="text/javascript"></script>
+<script src="SpryAssets/SpryHTMLDataSet.js" type="text/javascript"></script>
+<script type="text/javascript">
+var dsTipoInmueble = new Spry.Data.HTMLDataSet("http://www.javeahouses.com/index.php?accion=obtenerTiposMovil", "tiposInmuebles");
+var dsPrecios = new Spry.Data.HTMLDataSet("http://www.javeahouses.com/index.php?accion=obtenerPreciosMovil", "preciosInmuebles");
+var dsInmuebles = new Spry.Data.HTMLDataSet("http://www.javeahouses.com/index.php?accion=obtenerInmueblesMovil&paraVenta=1", "inmuebles");
+var dsInmueblesFull = new Spry.Data.HTMLDataSet("http://www.javeahouses.com/index.php?accion=obtenerInmueblesMovil&paraVenta=1", "inmuebles");
+</script>
+<script src="js/functions.js"></script>
+
+
+<!--  --->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="cleartype" content="on">
+    
+    
+   <!-- ENICIO Edisson - gallery ---> 
+    <link href="swip/styles.css" type="text/css" rel="stylesheet" />
+	
+	<link href="swip/photoswipe.css" type="text/css" rel="stylesheet" />
+	
+	<script type="text/javascript" src="swip/lib/klass.min.js"></script>
+	<script type="text/javascript" src="swip/code.photoswipe-3.0.5.min.js"></script>
+	
+	
+	<script type="text/javascript">
+
+		(function(window, PhotoSwipe){
+		
+			document.addEventListener('DOMContentLoaded', function(){
+			
+				var
+					options = {
+						preventHide: true
+						},
+					instance = PhotoSwipe.attach( window.document.querySelectorAll('#Gallery a'), options );
+			
+			instance.show(0);
+
+			
+			}, false);
+			
+			
+		}(window, window.Code.PhotoSwipe));
+		
+		</script>
+    
+    
+     <!-- Edisson - gallery FIN ---> 
+    
+
+   
+</head> 
+<body class="app"> 
+
+<div data-role="page" id="inicio">
+	<div data-role="header" data-theme="c">
+        <div><center><img src="res/plantilla/logo-mini.png" width="82" height="20"></center></div>
+	</div>
+	<div data-role="content">	
+		<ul data-role="listview">
+			<li><a href="tel:+3004410097">Llamar</a></li>
+            <li><a href="#filtro">Buscar</a></li>
+			<li><a href="#galeria">Contactar</a></li>
+		</ul>		
+	</div>
+</div>
+
+<div data-role="page" id="filtro">
+  <div data-role="header" data-theme="c">
+    <div class="header-col1"><a href="#inicio" data-role="button" data-icon="arrow-l" data-iconpos="left">Inicio</a></div>
+    <div><center><img src="res/plantilla/logo-mini.png" alt="" width="82" height="20"></center></div>
+    <div class="header-col2"></div>
+  </div>
+	<div data-role="content">
+	    <div data-role="fieldcontain">
+	      <fieldset data-role="controlgroup"  data-type="horizontal">
+	        <input type="radio" name="idioma" id="idioma_0" value="" />
+	        <label for="idioma_0">Español</label>
+	        <input type="radio" name="idioma" id="idioma_1" value="" />
+	        <label for="idioma_1">Ingles</label>
+          </fieldset>
+      </div>
+	    <div data-role="fieldcontain">
+	      <fieldset data-role="controlgroup" data-type="horizontal">
+	        <input type="radio" name="tipoNegocio" id="tipoNegocio_0" value="paraVenta" />
+	        <label for="tipoNegocio_0">Venta</label>
+	        <input type="radio" name="tipoNegocio" id="tipoNegocio_1" value="paraAlquiler" />
+	        <label for="tipoNegocio_1">Alquier</label>
+          </fieldset>
+      </div>
+
+	 
+<div data-role="fieldcontain" spry:region="dsTipoInmueble">
+  <select spry:repeatchildren="dsTipoInmueble" name="selectmenu" id="selectmenu" >
+            <option value="{idTipoInmueble}" >{tipoInmueble}</option>
+  </select>
+
+         
+<span>        <span class="selectRequiredMsg">Seleccione un elemento.</span></span></div>
+	    <div data-role="fieldcontain">
+	      <select name="idPrecios" id="idPrecios" spry:region="dsPrecios">
+	        <option value="option1">Seleccione el Precio</option>
+	        <option spry:repeat="dsPrecios" value="{idPrecio}">{Precio}</option>
+            </select>
+      </div>
+	    <a href="#resultados" data-role="button">Buscar</a>
+	   
+	</div>
+</div>
+
+
+<div data-role="page" id="resultados">
+  <div data-role="header" data-theme="c">
+    <div class="boton-inicio"><a href="#inicio" data-role="button" data-icon="arrow-l" data-iconpos="left">Inicio</a></div>
+    <div><center><img src="res/plantilla/logo-mini.png" alt="" width="82" height="20"></center></div>
+  </div>
+  <div data-role="content">
+  <div class="MasterDetail">
+    <div spry:region="dsInmuebles" class="MasterContainer">
+      <div class="MasterColumn" spry:repeat="dsInmuebles" spry:setrow="dsInmuebles" spry:hover="MasterColumnHover" spry:select="MasterColumnSelected"><a href="#detalle"><img src="{imagen}"
+      /></a><br />
+        {Ubicacion}<br />
+        {Precio}<br />
+        {Tipo}</div>
+    </div>
+    <br style="clear:both" />
+  </div>
+  
+  <div spry:region="dsInmueblesFull" class="SpotlightAndStacked">
+    <div spry:repeat="dsInmueblesFull" class="SpotlightAndStackedRow">
+      <div class="SpotlightContainer">
+        <div class="SpotlightColumn"><img src="{imagen}"></div>
+      </div>
+      <div class="StackedContainer">
+        <div class="StackedColumn"> {Precio}</div>
+        <div class="StackedColumn"> {Ubicacion}</div>
+        <div class="StackedColumn"> </div>
+        <div class="StackedColumn"> {Tipo}</div>
+      </div>
+      <br style="clear:both; line-height: 0px" />
+    </div>
+  </div>
+<div id="resultLog"></div>					
+  </div>
+</div>
+
+<div data-role="page" id="detalle">
+  <div data-role="header" data-theme="c">
+    <div class="header-col1"><a href="#resultados" data-role="button" data-icon="arrow-l" data-iconpos="left">Atras</a></div>
+    <div class="logo"><img src="res/plantilla/logo-mini.png" alt="" width="82" height="20"></div>
+    <div class="header-col2"></div>
+  </div>
+  <div data-role="content">	
+		
+    <div spry:detailregion="dsInmuebles" class="DetailContainer">
+      <div class="DetailColumn"><img src="{imagen}"></div>
+      <div class="DetailColumn">{Precio}</div>
+      <div class="DetailColumn">{Ubicacion}</div>
+      <div class="DetailColumn">{Tipo}</div>
+    </div>
+    
+
+  </div>
+
+</div>
+<div data-role="page" id="galeria">
+  <div data-role="content">
+ images
+   <div id="MainContent">
+
+	<div class="page-content">
+		<h1>PhotoSwipe</h1>
+	</div>
+	
+	<ul id="Gallery" class="gallery">
+		<li><a href="swip/images/full/001.jpg"><img src="swip/images/thumb/001.jpg" alt="Image 001" /></a></li>
+		<li><a href="swip/images/full/002.jpg"><img src="swip/images/thumb/002.jpg" alt="Image 002" /></a></li>
+		<li><a href="swip/images/full/003.jpg"><img src="swip/images/thumb/003.jpg" alt="Image 003" /></a></li>
+		<li><a href="swip/images/full/004.jpg"><img src="swip/images/thumb/004.jpg" alt="Image 004" /></a></li>
+		<li><a href="swip/images/full/005.jpg"><img src="swip/images/thumb/005.jpg" alt="Image 005" /></a></li>
+		<li><a href="swip/images/full/006.jpg"><img src="swip/images/thumb/006.jpg" alt="Image 006" /></a></li>
+		<li><a href="swip/images/full/007.jpg"><img src="swip/images/thumb/007.jpg" alt="Image 007" /></a></li>
+		<li><a href="swip/images/full/008.jpg"><img src="swip/images/thumb/008.jpg" alt="Image 008" /></a></li>
+		<li><a href="swip/images/full/009.jpg"><img src="swip/images/thumb/009.jpg" alt="Image 009" /></a></li>
+		<li><a href="swip/images/full/010.jpg"><img src="swip/images/thumb/010.jpg" alt="Image 010" /></a></li>
+		<li><a href="swip/images/full/011.jpg"><img src="swip/images/thumb/011.jpg" alt="Image 011" /></a></li>
+		<li><a href="swip/images/full/012.jpg"><img src="swip/images/thumb/012.jpg" alt="Image 012" /></a></li>
+		<li><a href="swip/images/full/013.jpg"><img src="swip/images/thumb/013.jpg" alt="Image 013" /></a></li>
+		<li><a href="swip/images/full/014.jpg"><img src="swip/images/thumb/014.jpg" alt="Image 014" /></a></li>
+		<li><a href="swip/images/full/015.jpg"><img src="swip/images/thumb/015.jpg" alt="Image 015" /></a></li>
+		<li><a href="swip/images/full/016.jpg"><img src="swip/images/thumb/016.jpg" alt="Image 016" /></a></li>
+		<li><a href="swip/images/full/017.jpg"><img src="swip/images/thumb/017.jpg" alt="Image 017" /></a></li>
+		<li><a href="swip/images/full/018.jpg"><img src="swip/images/thumb/018.jpg" alt="Image 018" /></a></li>
+		
+	</ul>
+	
+</div>	
+  </div>
+</div>  
+
+
+</div>
+
+</body>
+</html>

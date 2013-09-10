@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* CSS Document */
+
+.boton-inicio, .header-col1, .header-col2{float:left; width:100px;}
+.logo{float:left;
+margin:0 auto}
+.StackedColumn{border:none;}
+#galeria .ui-page{
+	height:200px;
+}
